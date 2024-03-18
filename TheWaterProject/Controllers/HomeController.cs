@@ -16,7 +16,7 @@ namespace TheWaterProject.Controllers
 
         public IActionResult Index(int pageNum)
         {
-            int pageSize = 5;
+            int pageSize = 2;
 
             var blah = new ProjectsListViewModel
             {
