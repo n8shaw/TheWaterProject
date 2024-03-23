@@ -13,6 +13,11 @@ builder.Services.AddDbContext<WaterProjectContext>(options =>
 
 builder.Services.AddScoped<IWaterRepository, EFWaterRepository>();
 
+builder.Services.AddRazorPages();
+
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -23,8 +28,12 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
+
+
 app.UseHttpsRedirection();
 app.UseStaticFiles();
+
+app.UseSession();
 
 app.UseRouting();
 
@@ -35,5 +44,7 @@ app.MapControllerRoute("pagenumandtype", "{projectType}/{pageNum}", new { Contro
 app.MapControllerRoute("pagination", "{pageNum}", new {Controller = "Home", action = "Index", pageNum=1});
 app.MapControllerRoute("projecttype", "{projectType}", new { Controller = "Home", action = "Index", pageNum=1 });
 app.MapDefaultControllerRoute();
+
+app.MapRazorPages();
 
 app.Run();
